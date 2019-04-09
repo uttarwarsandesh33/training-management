@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "capcotraining",
+    "staging": "trainingcapco"
+  }
+}

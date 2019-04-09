@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg text-white  navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand " (click)="homeNavigate()">
+      <img src="../../../assets/imgs/capco_white.png" alt="Capco" height="50px">
+    </a>
+
+    <div>
+      <div class="row">
+        <div class="col">
+          <div class="dropdown show">
+            <a id="auth-menu" class="btn btn-secondary dropdown-toggle " role="button" id="dropdownMenuLink" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" >
+             {{roleType | uppercase}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" *ngIf="eventService.user.learnerRole" [routerLink]="['/home/learner']" value="learner" (click)="setRole('learner')">Learner</a>
+              <a class="dropdown-item" *ngIf="eventService.user.adminRole" [routerLink]="['/home/admin']" value="admin" (click)="setRole('admin')">Admin</a>
+              <a class="dropdown-item" *ngIf="eventService.user.trainerRole" [routerLink]="['/home/trainer']" value="trainer" (click)="setRole('trainer')">Trainer</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="dropdown show">
+            <a id="user-menu" class="btn btn-secondary dropdown-toggle " role="button" id="dropdownMenuLink" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              {{eventService.user.firstName.charAt(0)+'.' | uppercase}} {{eventService.user.lastName | uppercase}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a [routerLink]="['/home/my-profile']" class="dropdown-item">My Profile</a>
+              <a [routerLink]="['/routePath']" class="dropdown-item">All Courses</a>
+              <a [routerLink]="['/home/faqs']" class="dropdown-item">FAQs</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" (click)="logout()">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</nav>

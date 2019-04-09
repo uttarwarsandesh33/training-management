@@ -1,0 +1,50 @@
+<form [formGroup]="loginForm">
+
+    <div class="form-group">
+      <label for="email">Email-Id</label>
+      <input formControlName="email" class="form-control " [ngClass]="applyClass(email)" type="email" id="email"
+        placeholder="Enter your Email-Id">
+      <div id="email-error" class="invalid-feedback" *ngIf="email.errors">
+        <span *ngIf="loginForm.controls['email'].errors.required">
+          This field is required
+        </span>
+        <span *ngIf="loginForm.controls['email'].errors.pattern">
+          Please enter Capco email address.
+        </span>
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="password">Password</label>
+      <div class="input-group">
+      <input formControlName="password" class="form-control " [ngClass]="applyClass(password)" [type]="!showPass ? 'password' : 'text'" id="password"
+        placeholder="Enter password">
+        <div class="input-group-append" (click)="show()">
+          <div class="input-group-text">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+          </div>
+        </div>
+      <div id="password-error" class="invalid-feedback" *ngIf="password.errors">
+        <span *ngIf="loginForm.controls['password'].errors.required">
+          This field is required.
+        </span>
+        <span *ngIf="loginForm.controls['password'].errors.pattern">
+          Min 6 characters and Max 15 characters,at least one Upper Case,at least one lower case and special
+          characters(! @ # $ % ^ & *).
+        </span>
+      </div>
+      </div>
+    </div>
+  
+  
+    <div class="d-flex justify-content-around">
+      <div>
+        <a id="forgot-link" [routerLink]="['/forgot-password']" routerLinkActive="router-link-active" >Forgot password?</a>
+      </div>
+    </div>
+  
+    <div class="text-center">
+      <button id="signin-btn" [disabled] = "loginForm.invalid" class="my-4 btn btn-dark col-12 shadow" type="submit" (click)="login()">Sign in</button>
+    </div>
+  </form>
+  <!-- Default form login -->

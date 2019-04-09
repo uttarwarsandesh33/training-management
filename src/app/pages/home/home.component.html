@@ -1,0 +1,4 @@
+
+<app-learner *ngIf="eventService.role == 'learner'"></app-learner>
+<app-admin *ngIf="eventService.role == 'admin'"></app-admin>
+<app-trainer *ngIf="eventService.role == 'trainer'"></app-trainer>

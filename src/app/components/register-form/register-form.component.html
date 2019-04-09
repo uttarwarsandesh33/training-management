@@ -1,0 +1,117 @@
+<form [formGroup]="registerForm">
+  <div class="form-group">
+    <label for="firstName">First Name</label>
+    <input formControlName="firstName" class="form-control " [ngClass]="applyClass(firstName)" type="text" id="firstName"
+      placeholder="First Name" />
+    <div id="first-name-error" class="invalid-feedback" *ngIf="firstName.errors">
+      <span *ngIf="firstName.errors.required">
+        This field is required
+      </span>
+      <span *ngIf="firstName.errors.maxlength">
+        Minimum of 50 characters.
+      </span>
+      <span *ngIf="firstName.errors.pattern">
+        Only characters are allowed.
+      </span>
+      <span *ngIf="firstName.errors.cannotContainSpace">
+        {{firstName.errors.cannotContainSpace}}
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="lastName">Last Name</label>
+    <input formControlName="lastName" class="form-control " [ngClass]="applyClass(lastName)" type="text" id="lastName"
+      placeholder="Last Name" />
+    <div id="last-name-error" class="invalid-feedback" *ngIf="lastName.errors">
+      <span *ngIf="lastName.errors.required">
+        This field is required
+      </span>
+      <span *ngIf="lastName.errors.maxlength">
+        Minimum of 50 characters.
+      </span>
+      <span *ngIf="lastName.errors.pattern">
+        Only characters are allowed.
+      </span>
+      <span *ngIf="lastName.errors.cannotContainSpace">
+        {{lastName.errors.cannotContainSpace}}
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email-Id</label>
+    <input formControlName="email" class="form-control " [ngClass]="applyClass(email)" type="email" id="email"
+      placeholder="Enter your Email-Id" />
+    <div id="email-error" class="invalid-feedback" *ngIf="email.errors">
+      <span *ngIf="email.errors.required">
+        This field is required
+      </span>
+      <span *ngIf="email.errors.pattern">
+        Please enter Capco email address.
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="dob">What is your Date of birth?</label>
+    <input formControlName="dob" type="date" class="form-control" [ngClass]="applyClass(dob)" max="{{ maxDate }}" />
+    <div id="dob-error" class="invalid-feedback" *ngIf="dob.errors">
+      <span *ngIf="dob.errors.required">
+        This field is required
+      </span>
+      <span *ngIf="dob.errors.checkAge">
+        {{dob.errors.checkAge}}
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <div class="input-group">
+      <input id="password" formControlName="password" [type]="!showPass ? 'password' : 'text'" class="form-control"
+        [ngClass]="applyClass(password)" required />
+      <div class="input-group-append" (click)="show()">
+        <div class="input-group-text">
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div id="password-error" class="invalid-feedback" *ngIf="password.errors">
+        <span *ngIf="password.errors.required">
+          This field is required
+        </span>
+        <span *ngIf="password.errors.pattern">
+          Min 6 characters and Max 15 characters,at least one Upper Case,at
+          least one lower case and special characters(! @ # $ % ^ & *).
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="skills">Primary Skill</label>
+    <select formControlName="skill" class="form-control" id="skills">
+      <option value="Frontend">Frontend</option>
+      <option value="Backend">Backend</option>
+      <option value="Business Analyst" selected>Business Analyst</option>
+      <option value="Data Analyst">Data Analyst</option>
+      <option value="Dev Ops">Dev Ops</option>
+      <option value="Testing">Testing</option>
+    </select>
+  </div>
+
+
+  <div class="row">
+    <div class="col-6">
+      <!-- <button type="button" class="btn btn-dark btn-block shadow" [disabled]="registerForm.invalid" (click)="submit()" -->
+      <button id="security-btn" [disabled]="registerForm.invalid" type="button" class="btn btn-dark btn-block shadow" (click)="submit()" routerLinkActive="active">
+        Next
+      </button>
+    </div>
+    <div class="col-6">
+      <button id="register-cancel-btn" class="btn  btn-light btn-block shadow" type="button" routerLink="/login" routerLinkActive="active">
+        Cancel
+      </button>
+    </div>
+  </div>
+</form>

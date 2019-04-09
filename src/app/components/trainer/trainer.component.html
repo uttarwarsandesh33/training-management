@@ -1,0 +1,191 @@
+<div class="card shadow container mt-4 p-4">
+  <div align="center" class="row mt-4">
+    <div class="col-sm-4">
+      <div class="card tile-box  mx-auto">
+        <i class="fa fa-briefcase fa-2x p-2" aria-hidden="true"></i>
+        <label for="AddUser" class="txt">Completed Trainings</label>
+      </div>
+    </div>
+
+    <div class="col-sm-4 pt-2">
+      <form class="navbar-form" role="search">
+        <div class="input-group add-on">
+          <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text" />
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="submit">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <hr />
+
+  <div align="center" class="row mt-4">
+    <div class="col-sm-10 mx-auto table-responsive">
+      <table class="table table-striped table-bordered table-hover text-center">
+        <thead>
+          <tr>
+            <th>Training Name</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-toggle="modal" data-target="#myModal" *ngFor="let training of trainingList; let i = index" (click)="openModal(i)">
+            <td>{{training.trainingName}}</td>
+            <td>{{training.courseCategory}}</td>
+            <td>{{training.startDate}}</td>
+            <td>{{training.startTime}}</td>
+            <td>{{training.endTime}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-sm-2 sidenav">
+      <div class="card tile-box mb-2">
+        <i class="fa fa-briefcase p-2" aria-hidden="true"></i>
+        <label for="courseCatalog" class="txt">Course Catalog</label>
+      </div>
+      <div class="card tile-box">
+        <i class="fa fa-calendar p-2" aria-hidden="true"></i><br />
+        <label for="calendar" class="txt">Calendar</label>
+      </div>
+    </div>
+
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<!-- intro to business analysis -->
+<div class="container">
+  <form [formGroup]="trainerForm">
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Introduction to {{modalData?.trainingName}}</h4>
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="trainingName">Training Name</label>
+                  <input formControlName="trainingName" class="form-control" [ngClass]="applyClass(trainingName)" type="text"
+                    id="trainingName" [placeholder]="modalData?.trainingName" disabled />
+                </div>
+
+                <div class="form-group">
+                  <!-- <label for="trainingCategory">Training Category</label>
+                  <select
+                    id="trainingCategory"
+                    [ngModelOptions]="{ standalone: true }"
+                    name="trainingCategory"
+                    class="form-control"
+                    required
+                    [(ngModel)]="trainingCategory"
+                  >
+                    <option value="frontend">Frontend</option>
+                    <option value="backend">Backend</option>
+                    <option value="ba">BA</option>
+                    <option value="testing">Testing</option>
+                    <option value="devops">DEV OPS</option>
+                  </select> -->
+
+                  <label for="trainingName">Training Category</label>
+                  <input formControlName="trainingName" class="form-control" [ngClass]="applyClass(trainingName)" type="text"
+                    id="trainingName" [placeholder]="modalData?.courseCategory" disabled />
+                </div>
+
+                <!-- <div class="form-group">
+                  <label for="trainerName">Trainer Name</label>
+                  <input
+                    class="form-control "
+                    type="text"
+                    id="trainerName"
+                    placeholder="Trainer Name"
+                    disabled
+                  />
+                </div> -->
+
+                <div class="form-group">
+                  <label for="venue">Venue</label>
+                  <input class="form-control " type="text" id="venue" placeholder="Vatika business center " disabled />
+                </div>
+
+                <div class="form-group">
+                  <label for="trainingType">Training Type</label>
+                  <input formControlName="trainingType" class="form-control " type="text" id="trainingType" placeholder="Mandatory"
+                    [ngClass]="applyClass(trainingType)" disabled />
+                  <div id="training-name-error" class="invalid-feedback" *ngIf="trainingName.errors">
+                    <span *ngIf="trainingType.errors.required">
+                      This field is required
+                    </span>
+                    <span *ngIf="trainingType.errors.cannotContainSpace">
+                      {{ trainingType.errors.cannotContainSpace }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="form-group">
+                  <label for="date">Date</label>
+                  <input class="form-control" formControlName="startDate" type="date" id="date" placeholder="Date" />
+                </div>
+
+                <!-- <div class="form-group">
+                  <label for="endDate">End Date</label>
+                  <input
+                    class="form-control "
+                    type="date"
+                    id="endDate"
+                    placeholder="End Date"
+                  />
+                </div> -->
+
+                <div class="form-group">
+                  <label for="startTime">Start Time</label>
+                  <input class="form-control" formControlName="startTime" type="time" id="startTime" placeholder="Start Time" />
+                </div>
+
+                <div class="form-group">
+                  <label for="endTime">End Time</label>
+                  <input class="form-control" formControlName="endTime" type="time" id="endTime" placeholder="End Time" />
+                </div>
+
+                <div class="form-group">
+                  <label for="completionStatus">Completion Status</label>
+                  <select id="completionStatus"  name="completionStatus" formControlName="completionStatus" class="form-control" required>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateTraining()">
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- End of business analysis -->
